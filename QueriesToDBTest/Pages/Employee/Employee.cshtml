@@ -1,0 +1,46 @@
+﻿@page "{login}"
+@model QueriesToDBTest.Pages.EmployeeModel
+@{
+}
+@{
+    Layout = "./_Employee_Layout";
+}
+<style type="text/css">
+    #centerLayer {
+     margin: 10px;
+    }
+    #button {
+        margin-top: 10px;
+    }
+    </style>
+    <a asp-page="EmployeeStart" asp-route-login=@Model.Login><img src="~/return.png"  width="64" height="64"></a>
+<table class="table">
+    <thead>
+        <tr><th>Ім'я</th><th>По-батькові</th><th>Прізвище</th><th>Дата народження</th><th>Паспорт</th><th>Адреса</th><th>ІДН</th><th>Моб. номер</th><th>Логін</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var visitor in Model.visitor)
+        {
+        <tr>
+            <td>@visitor.f_name</td>
+            <td>@visitor.patronymic</td>
+            <td>@visitor.l_name</td>
+            <td>@visitor.date_of_birth.ToString("yyyy-MM-dd")</td>
+            <td>@visitor.passport_no </td>
+            <td>@visitor.address</td>
+            <td>@visitor.idn</td>
+            <td>@visitor.mobile</td>
+            <td>@visitor.login</td>
+            <td>
+                <form method="post">
+                    <a class="btn btn-info btn-sm" id="button" asp-page="EditEmployee" asp-route-login=@Model.Login asp-route-id="@visitor.visitor_no">Змінити дані</a>
+                    <button type="submit" id="button" class="btn btn-danger btn-sm" asp-page-handler="delete" asp-route-id="@visitor.visitor_no">
+                        Видалити
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+    <p><a class="btn btn-success btn-sm" id="button" asp-page="CreateVisitor" asp-route-login=@Model.Login>Зареєструвати відвідувача</a></p>

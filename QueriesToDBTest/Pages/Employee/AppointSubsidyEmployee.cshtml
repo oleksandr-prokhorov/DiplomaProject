@@ -1,0 +1,113 @@
+﻿@page "{login}"
+@model QueriesToDBTest.Pages.Employee.AppointSubsidyEmployeeModel
+@{
+}
+@{
+    Layout = "./_Employee_Layout";
+}
+<style type="text/css">
+    #centerLayer {
+     margin: 10px;
+    }
+    #button {
+        margin-top: 10px;
+    }
+    </style>
+    <a asp-page="EmployeeStart" asp-route-login=@Model.Login><img src="~/return.png"  width="64" height="64"></a>
+    <h2>Відвідувачі зі схваленими заявами</h2>
+    <table class="table">
+    <thead>
+        <tr><th>Ім'я</th><th>По-батькові</th><th>Прізвище</th><th>Дата народження</th><th>Паспорт</th><th>ІДН</th></tr>
+    </thead>
+    <tbody>
+
+        @foreach (var visitor in Model.visitorApprovedApplication)
+        {
+        <tr>
+            <td>@visitor.f_name</td>
+            <td>@visitor.patronymic</td>
+            <td>@visitor.l_name</td>
+            <td>@visitor.date_of_birth.ToString("yyyy-MM-dd")</td>
+            <td>@visitor.passport_no </td>
+            <td>@visitor.idn</td>
+            <td><form method="post">
+                    <a class="btn btn-info btn-sm" id="button" asp-page="EmployeeShowSubsidies" asp-route-login=@Model.Login asp-route-id="@visitor.visitor_no">Переглянути історію виплат</a>
+                </form>
+                </td>
+            <td>
+                <form method="post">
+                    <a class="btn btn-success btn-sm" id="button" asp-page="EmployeeAppoint" asp-route-login=@Model.Login asp-route-id="@visitor.visitor_no">Призначити виплату</a>
+                </form>
+                </td>
+            <td>
+                <form method="post">
+                    <a class="btn btn-warning btn-sm" id="button" asp-page="EmployeeTransferVisitor" asp-route-login=@Model.Login asp-route-id="@visitor.visitor_no">Призначити відвідувача іншому співробітнику</a>
+                </form>
+                </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<h2>Відвідувачі з поданими заявами</h2>
+<table class="table">
+    <thead>
+        <tr><th>Ім'я</th><th>По-батькові</th><th>Прізвище</th><th>Дата народження</th><th>Паспорт</th><th>ІДН</th></tr>
+    </thead>
+    <tbody>
+
+        @foreach (var visitor in Model.visitorFiledAplication)
+        {
+        <tr>
+            <td>@visitor.f_name</td>
+            <td>@visitor.patronymic</td>
+            <td>@visitor.l_name</td>
+            <td>@visitor.date_of_birth.ToString("yyyy-MM-dd")</td>
+            <td>@visitor.passport_no </td>
+            <td>@visitor.idn</td>
+            <td><form method="post">
+                    <a class="btn btn-info btn-sm" id="button" asp-page="EmployeeShowSubsidies" asp-route-login=@Model.Login asp-route-id="@visitor.visitor_no">Переглянути історію виплат</a>
+                </form>
+                </td>
+            <td>
+                <form method="post">
+                    <a class="btn btn-primary btn-sm" id="button" asp-page="EmployeeCheckApplication" asp-route-login=@Model.Login asp-route-id="@visitor.visitor_no">Розглянути заяву</a>
+                </form>
+                </td>
+            <td>
+                <form method="post">
+                    <a class="btn btn-warning btn-sm" id="button" asp-page="EmployeeTransferVisitor" asp-route-login=@Model.Login asp-route-id="@visitor.visitor_no">Призначити відвідувача іншому співробітнику</a>
+                </form>
+                </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<h2>Усі призначені відвідувачі</h2>
+<table class="table">
+    <thead>
+        <tr><th>Ім'я</th><th>По-батькові</th><th>Прізвище</th><th>Дата народження</th><th>Паспорт</th><th>ІДН</th></tr>
+    </thead>
+    <tbody>
+
+        @foreach (var visitor in Model.visitor)
+        {
+        <tr>
+            <td>@visitor.f_name</td>
+            <td>@visitor.patronymic</td>
+            <td>@visitor.l_name</td>
+            <td>@visitor.date_of_birth.ToString("yyyy-MM-dd")</td>
+            <td>@visitor.passport_no </td>
+            <td>@visitor.idn</td>
+            <td><form method="post">
+                    <a class="btn btn-info btn-sm" id="button" asp-page="EmployeeShowSubsidies" asp-route-login=@Model.Login asp-route-id="@visitor.visitor_no">Переглянути історію виплат</a>
+                </form>
+                </td>
+            <td>
+                <form method="post">
+                    <a class="btn btn-warning btn-sm" id="button" asp-page="EmployeeTransferVisitor" asp-route-login=@Model.Login asp-route-id="@visitor.visitor_no">Призначити відвідувача іншому співробітнику</a>
+                </form>
+                </td>
+        </tr>
+    }
+    </tbody>
+</table>

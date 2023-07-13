@@ -1,0 +1,150 @@
+﻿@page "{id:int}"
+@model QueriesToDBTest.Pages.Client.VisitorDeclarationModel
+@{
+    Layout = "./_Visitor_Layout";
+}
+@{
+    List<SelectListItem> IncomeTypes  = new List<SelectListItem> {
+                new SelectListItem { Value = "salary", Text = "зарплата" },
+                new SelectListItem { Value = "pension", Text = "пенсія" },
+                new SelectListItem { Value = "entrepreneurship", Text = "підприємництво" },
+                new SelectListItem { Value = "allowance", Text = "соціальна допомога" }
+            };
+     List<SelectListItem> FamilyTies = new List<SelectListItem> {
+                new SelectListItem { Value = "I", Text = "I" },
+                new SelectListItem { Value = "II", Text = "II" }
+            };
+      List<SelectListItem> OwnershipTypes = new List<SelectListItem> {
+                new SelectListItem { Value = "private", Text = "приватна" },
+                new SelectListItem { Value = "communal", Text = "комунальна" },
+                new SelectListItem { Value = "state", Text = "державна" }
+            };
+}
+<a asp-page="VisitorDocuments" asp-route-id=@Model.Id><img src="~/return.png"  width="64" height="64"></a>
+<h1>@Model.Message</h1>
+<h1>Заповнення декларації</h1>
+<form method="post" asp-route-id=@Model.Id asp-page-handler="Add">
+<h2>Члени родини</h2>
+<table class="table">
+    <thead>
+        <tr><th>Прізвище</th><th>Ім'я</th><th>По-батькові</th><th>Ступінь зв'язку</th><th>ИДН</th><th>Примітки</th></tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.Size; i++)
+        {
+        <tr>
+            <td><input asp-for="familyMembersCertificate[i].l_name" /></td>
+            <td><input asp-for="familyMembersCertificate[i].f_name" /></td>
+            <td><input asp-for="familyMembersCertificate[i].patronymic" /></td>
+            <td><select asp-for="familyMembersCertificate[i].degree_relationship" asp-items="FamilyTies">
+                <option value="">Ступінь спорідненості</option>
+                </select></td>
+            <td><input asp-for="familyMembersCertificate[i].idn" /></td>
+            <td><input asp-for="familyMembersCertificate[i].comment" /></td>
+        </tr>
+    }
+    </tbody>
+</table>
+<h2>Доходи членів родини</h2>
+<table class="table">
+    <thead>
+        <tr><th>Прізвище</th><th>Ім'я</th><th>По-батькові</th><th>Тип</th><th>Розмір</th><th>Джерело</th><th>З</th><th>До</th></tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.Size; i++)
+        {
+        <tr>
+            <td><input asp-for="SurnameIncome[i]" /></td>
+            <td><input asp-for="NameIncome[i]" /></td>
+            <td><input asp-for="PatronymicIncome[i]" /></td>
+            <td><select asp-for="incomeFamilyRecords[i].income_type" asp-items="IncomeTypes">
+                <option value="">Тип доходу</option>
+                </select></td>
+            <td><input asp-for="incomeFamilyRecords[i].amount" /></td>
+            <td><input asp-for="incomeFamilyRecords[i].source_of_income" /></td>
+            <td><input asp-for="incomeFamilyRecords[i].income_start" /></td>
+            <td><input asp-for="incomeFamilyRecords[i].income_finish" /></td>
+        </tr>
+    }
+    </tbody>
+</table>
+<h2>Витрати членів родини</h2>
+<table class="table">
+    <thead>
+        <tr><th>Прізвище</th><th>Ім'я</th><th>По-батькові</th><th>Призначення</th><th>Вартість</th><th>Дата</th></tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.Size; i++)
+        {
+        <tr>
+            <td><input asp-for="SurnameSpending[i]" /></td>
+            <td><input asp-for="NameSpending[i]" /></td>
+            <td><input asp-for="PatronymicSpending[i]" /></td>
+            <td><input asp-for="spendingFamilyRecords[i].spending_purpose" /></td>
+            <td><input asp-for="spendingFamilyRecords[i].cost" /></td>
+            <td><input asp-for="spendingFamilyRecords[i].date_of_purchase" /></td>
+        </tr>
+    }
+    </tbody>
+</table>
+<h2>Приміщення у власності членів родини</h2>
+<table class="table">
+    <thead>
+        <tr><th>Прізвище</th><th>Ім'я</th><th>По-батькові</th><th>Площа</th><th>Кількість проживаючих осіб</th><th>Адреса</th></tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.Size; i++)
+        {
+        <tr>
+            <td><input asp-for="SurnameProperty[i]" /></td>
+            <td><input asp-for="NameProperty[i]" /></td>
+            <td><input asp-for="PatronymicProperty[i]" /></td>
+            <td><input asp-for="propertyFamilyRecords[i].area" /></td>
+            <td><input asp-for="propertyFamilyRecords[i].person_num" /></td>
+            <td><input asp-for="propertyFamilyRecords[i].address" /></td>
+        </tr>
+    }
+    </tbody>
+</table>
+<h2>Земельні ділянки у власності членів родини</h2>
+<table class="table">
+    <thead>
+        <tr><th>Прізвище</th><th>Ім'я</th><th>По-батькові</th><th>Площа</th><th>Тип</th><th>Призначення</th></tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.Size; i++)
+        {
+        <tr>
+            <td><input asp-for="SurnameLand[i]" /></td>
+            <td><input asp-for="NameLand[i]" /></td>
+            <td><input asp-for="PatronymicLand[i]" /></td>
+            <td><input asp-for="landFamilyRecords[i].area" /></td>
+            <td><select asp-for="landFamilyRecords[i].type" asp-items="OwnershipTypes">
+                <option value="">Тип власності</option>
+                </select></td>
+            <td><input asp-for="landFamilyRecords[i].purpose" /></td>
+        </tr>
+    }
+    </tbody>
+</table>
+<h2>Транспортні засоби у власності членів родини</h2>
+<table class="table">
+    <thead>
+        <tr><th>Прізвище</th><th>Ім'я</th><th>По-батькові</th><th>Марка</th><th>Державний номер</th><th>Дата випуску</th></tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.Size; i++)
+        {
+        <tr>
+            <td><input asp-for="SurnameVehicles[i]" /></td>
+            <td><input asp-for="NameVehicles[i]" /></td>
+            <td><input asp-for="PatronymicVehicles[i]" /></td>
+            <td><input asp-for="vehiclesFamilyRecords[i].car_brand" /></td>
+            <td><input asp-for="vehiclesFamilyRecords[i].car_license_plate" /></td>
+            <td><input asp-for="vehiclesFamilyRecords[i].year_of_issue" /></td>
+        </tr>
+    }
+    </tbody>
+</table>
+<input class="btn btn-success btn-sm" id="button" type="submit" value="Зберегти дані" />
+</form>

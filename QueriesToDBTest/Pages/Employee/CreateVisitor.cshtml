@@ -1,0 +1,39 @@
+﻿@page "{login}"
+@model QueriesToDBTest.Pages.Employee.CreateVisitorModel
+@{
+    ViewData["Title"] = "Додавання нового користувача";
+}
+@{
+    Layout = "./_Employee_Layout";
+}
+<style type="text/css">
+    #button {
+        margin-top: 10px;
+    }
+    </style>
+<a asp-page="Employee" asp-route-login=@Model.Login><img src="~/return.png"  width="64" height="64"></a>
+<h2>@ViewData["Title"]</h2>
+<div asp-validation-summary="All"></div>
+<form method="POST">
+    <div>
+        <label>Ім'я</label><br /><input asp-for="visitor.f_name" />
+        </div>
+    <div>
+        <label>По-батькові</label><br /><input asp-for="visitor.patronymic" />
+        </div>
+    <div>
+        <label>Прізвище</label><br /><input asp-for="visitor.l_name" />
+        </div>
+    <div>
+        <label>Дата народження</label><br /><input asp-for="visitor.date_of_birth"  asp-format="{0:yyyy-MM-dd}" />
+        </div>
+    <div><label>Дані паспорту:</label><br /><input asp-for="visitor.passport_no"  /></div>
+    <div><label>ІДН:</label><br /><input asp-for="visitor.idn"  /></div>
+    <div><label>Мобільний номер:</label><br /><input asp-for="visitor.mobile"  /></div>
+    <div><label>Адреса:</label><br /><input asp-for="visitor.address"  /></div>
+    <div><label>Ім'я облікового запису:</label><br /><input asp-for="visitor.login"  /></div>
+    <input asp-for="user.category" type="hidden" value="@Model.cat"/>
+    <input asp-for="user.login" type="hidden" value="visitor.login"/>
+    <div><label>Початковий пароль:</label><br /><input asp-for="user.password"  /></div>
+    <input type="submit" class="btn btn-success btn-sm" id="button" value="Зареєструвати користувача" />
+</form>

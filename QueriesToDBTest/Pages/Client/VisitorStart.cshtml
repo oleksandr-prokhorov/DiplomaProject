@@ -1,0 +1,27 @@
+﻿@page "{login}"
+@model QueriesToDBTest.Pages.Client.VisitorStartModel
+@{
+    Layout = "./_Visitor_Layout";
+}
+<h2>Вітаємо, @Model.Login</h2><br />
+<div class="row">
+    <div class="col-md-4">
+        <img src="~/yoursubsidies.png" width="128" height="128" >
+        <h3>Інформація про виплати</h3>
+        <p> Перейдіть на цю форму, щоб отримати інформацію про свої активні та закінчені виплати
+        </p>
+        <p> <a class="btn btn-primary btn-sm" asp-page="VisitorFindSubsidies" asp-route-id=@Model.No>Перегляд своїх виплат</a></p>
+    </div>
+    <div class="col-md-4">
+        <img src="~/aid.png" width="128" height="128" >
+        <h3>Оформлення допомоги</h3>
+        <p> Перейдіть на цю форму, щоб оформити заяву на отримання соціальної допомоги</p>
+        <p> <a class="btn btn-primary btn-sm" asp-page="VisitorApplicationView" asp-route-id=@Model.No asp-route-login=@Model.Login>Подача заяви</a></p>
+    </div>
+    <div class="col-md-4">
+        <img src="~/docs.png" width="128" height="128" >
+        <h3>Реєстрація документів</h3>
+        <p> Перейдіть на цю форму, щоб внести інформацію про свої документи</p>
+        <p> <a class="btn btn-primary btn-sm" asp-page="VisitorDocuments" asp-route-id=@Model.No>Оформлення документів</a></p>
+    </div>
+</div>

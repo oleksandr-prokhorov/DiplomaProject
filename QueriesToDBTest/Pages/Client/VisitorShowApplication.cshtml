@@ -1,0 +1,228 @@
+﻿@page "{login}/{id:int}"
+@model QueriesToDBTest.Pages.Client.VisitorShowApplicationModel
+@{
+    Layout = "./_Visitor_Layout";
+}
+<style type="text/css">
+    #declaration {
+        border-style: solid;
+        border-width: 1px;
+
+    }
+    #button {
+        margin-top: 10px;
+    }
+    #delete {
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+    }
+    #part {
+        margin-top: 15px;
+        margin-left: 15px;
+        margin-bottom: 15px;
+        margin-right: 15px;
+    }
+    </style>
+<a asp-page="VisitorApplicationView" asp-route-login=@Model.Login asp-route-id=@Model.No><img src="~/return.png"  width="64" height="64"></a>
+<h1>@Model.Message</h1>
+@if(Model.application != null)
+{
+<h1>Заява</h1>
+<b>Дата подання: </b><label>@Model.application.application_date.ToString("yyyy-MM-dd")</label> <br />
+<b>Статус заяви: </b> <label>@Model.ApplicationStatus</label> <br />
+<b>Примітки: </b><label>@Model.Comment</label> <br />
+<h2>Додані до заяви документи</h2>
+<h3 id=part>Декларація про доходи та витрати</h3>
+<div id="declaration">
+<h4 id=part>Члени родини</h4>
+<table class="table" id=part>
+        <thead>
+            <tr><th>Прізвище</th><th>Ім'я</th><th>По-батькові</th><th>Ступінь зв'язку</th><th>ИДН</th><th>Примітки</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model.familyMembersCertificate)
+            {
+                <tr>
+                    <td>@member.l_name</td>
+                    <td>@member.f_name</td>
+                    <td>@member.patronymic</td>
+                    <td>@member.degree_relationship</td>
+                    <td>@member.idn</td>
+                    <td>@member.comment</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<h4 id=part>Доходи членів родини</h4>
+<table class="table" id=part>
+    <thead>
+        <tr><th>Прізвище</th><th>Ім'я</th><th>По-батькові</th><th>Тип</th><th>Розмір</th><th>Джерело</th><th>З</th><th>До</th></tr>
+    </thead>
+    <tbody>
+        
+        @for(int i=0; i < Model.incomeFamilyRecords.Count; i++)
+        {
+        <tr> 
+            <td>@Model.SurnameIncome[i]</td>
+            <td>@Model.NameIncome[i]</td>
+            <td>@Model.PatronymicIncome[i]</td>
+            <td>@Model.incomeFamilyRecords[i].income_type</td>
+            <td>@Model.incomeFamilyRecords[i].amount</td>
+            <td>@Model.incomeFamilyRecords[i].source_of_income</td>
+            <td>@Model.incomeFamilyRecords[i].income_start.ToString("yyyy-MM-dd")</td>
+            <td>@Model.incomeFamilyRecords[i].income_finish.ToString("yyyy-MM-dd")</td>
+        </tr>
+    } 
+    </tbody>
+</table>
+<h4 id=part>Витрати членів родини</h4>
+<table class="table" id=part>
+    <thead>
+        <tr><th>Прізвище</th><th>Ім'я</th><th>По-батькові</th><th>Призначення</th><th>Вартість</th><th>Дата</th></tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.spendingFamilyRecords.Count; i++)
+        {
+        <tr>
+            <td>@Model.SurnameSpending[i]</td>
+            <td>@Model.NameSpending[i]</td>
+            <td>@Model.PatronymicSpending[i]</td>
+            <td>@Model.spendingFamilyRecords[i].spending_purpose</td>
+            <td>@Model.spendingFamilyRecords[i].cost</td>
+            <td>@Model.spendingFamilyRecords[i].date_of_purchase.ToString("yyyy-MM-dd")</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<h4 id=part>Приміщення у власності членів родини</h4>
+<table class="table" id=part>
+    <thead>
+        <tr><th>Прізвище</th><th>Ім'я</th><th>По-батькові</th><th>Площа</th><th>Кількість проживаючих осіб</th><th>Адреса</th></tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.propertyFamilyRecords.Count; i++)
+        {
+        <tr>
+            <td>@Model.SurnameProperty[i]</td>
+            <td>@Model.NameProperty[i]</td>
+            <td>@Model.PatronymicProperty[i]</td>
+            <td>@Model.propertyFamilyRecords[i].area
+            м. кв.</td>
+            <td>@Model.propertyFamilyRecords[i].person_num
+            особи</td>
+            <td>@Model.propertyFamilyRecords[i].address</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<h4 id=part>Земельні ділянки у власності членів родини</h4>
+<table class="table" id=part>
+    <thead>
+        <tr><th>Прізвище</th><th>Ім'я</th><th>По-батькові</th><th>Площа</th><th>Тип</th><th>Призначення</th></tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.landFamilyRecords.Count; i++)
+        {
+        <tr>
+            <td>@Model.SurnameLand[i]</td>
+            <td>@Model.NameLand[i]</td>
+            <td>@Model.PatronymicLand[i]</td>
+            <td>@Model.landFamilyRecords[i].area</td>
+            <td>@Model.landFamilyRecords[i].type</td>
+            <td>@Model.landFamilyRecords[i].purpose</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<h4 id=part>Транспортні засоби у власності членів родини</h4>
+<table class="table" id=part>
+    <thead>
+        <tr><th>Прізвище</th><th>Ім'я</th><th>По-батькові</th><th>Марка</th><th>Державний номер</th><th>Дата випуску</th></tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.vehiclesFamilyRecords.Count; i++)
+        {
+        <tr>
+            <td>@Model.SurnameVehicles[i]</td>
+            <td>@Model.NameVehicles[i]</td>
+            <td>@Model.PatronymicVehicles[i]</td>
+            <td>@Model.vehiclesFamilyRecords[i].car_brand</td>
+            <td>@Model.vehiclesFamilyRecords[i].car_license_plate</td>
+            <td>@Model.vehiclesFamilyRecords[i].year_of_issue.ToString("yyyy-MM-dd")</td>
+        </tr>
+    }
+    </tbody>
+</table>
+</div>
+@if (Model.healthCertificates.Count != 0)
+{
+    <h3> Довідки про стан здоров'я</h3>
+    <table class="table">
+        <thead>
+            <tr><th>Дата останнього дослідження</th><th>Дата видачі довідки</th><th>Дата закінчення</th><th>Група інвалідності</th><th>Примітки</th><th>Номер документу</th><th>Дата видачі довідки</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var certificate in Model.healthCertificates)
+            {
+                <tr>
+                    <td>@certificate.last_inspection.ToString("yyyy-MM-dd")</td>
+                    <td>@certificate.period_start.ToString("yyyy-MM-dd")</td>
+                    <td>@certificate.period_end.ToString("yyyy-MM-dd")</td>
+                    <td>@certificate.disability_group </td>
+                    <td>@certificate.comment</td>
+                    <td>@certificate.document_no</td>
+                    <td>@certificate.date_of_issue</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@if (Model.childCertificates.Count != 0)
+{
+    <h3>Довідки про опіку над дитиною</h3>
+    <table class="table">
+        <thead>
+            <tr><th>Ім'я</th><th>По-батькові</th><th>Прізвище</th><th>Дата народження</th><th>Номер документу</th><th>Дата видачі довідки</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var certificate in Model.childCertificates)
+            {
+                <tr>
+                    <td>@certificate.f_name</td>
+                    <td>@certificate.patronymic</td>
+                    <td>@certificate.l_name</td>
+                    <td>@certificate.date_of_birth.ToString("yyyy-MM-dd")</td>
+                    <td>@certificate.document_no</td>
+                    <td>@certificate.date_of_issue</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@if (Model.disabledCertificates.Count != 0)
+{
+    <h3>Довідки про опіку над людиною з інвалідністю</h3>
+    <table class="table">
+        <thead>
+            <tr><th>Ім'я</th><th>По-батькові</th><th>Прізвище</th><th>Дата народження</th><th>Група інвалідності</th><th>Номер документу</th><th>Дата видачі довідки</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var certificate in Model.disabledCertificates)
+            {
+                <tr>
+                    <td>@certificate.f_name</td>
+                    <td>@certificate.patronymic</td>
+                    <td>@certificate.l_name</td>
+                    <td>@certificate.date_of_birth.ToString("yyyy-MM-dd")</td>
+                    <td>@certificate.disability_group</td>
+                    <td>@certificate.document_no</td>
+                    <td>@certificate.date_of_issue</td>
+                </tr>
+            } 
+        </tbody>
+    </table>
+}
+
+}

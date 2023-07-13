@@ -1,0 +1,25 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Ввод данных";
+}
+@{
+    Layout = "_Layout";
+}
+<style type="text/css">
+    #centerLayer {
+     margin-left: 30%; /* Отступ слева */
+     margin-right: 30%; /* Отступ справа */
+     padding: 10px; /* Поля вокруг текста */
+    }
+   </style>
+<form method="post">
+    <div id="centerLayer">
+    <h2>@Model.Message</h2>
+    <label for="name">Ім'я</label><br />
+    <input type="text" name="login" id="login" /><br /><br />
+    <label for="age">Пароль</label><br />
+    <input type="password" name="password" id="password" /><br /><br />
+    <input type="submit" value="Увійти до системи" />
+    </div>
+</form>

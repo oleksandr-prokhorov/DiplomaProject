@@ -1,0 +1,41 @@
+﻿@page "{login}/{id:int}"
+@model QueriesToDBTest.Pages.Client.VisitorApplicationModel
+@{
+    Layout = "./_Visitor_Layout";
+}
+<style type="text/css">
+    #centerLayer {
+     margin: 10px;
+    }
+    </style>
+<a asp-page="VisitorApplicationView" asp-route-login=@Model.Login asp-route-id=@Model.No><img src="~/return.png"  width="64" height="64"></a>
+<div>
+<h2>Оформлення заяви на отримання соціальної допомоги</h2>
+</div>
+<form method="post">
+    <b>До органу праці та соціального захисту населення</b> <br />
+    <b>від</b> <i> @Model.visitor.l_name @Model.visitor.f_name @Model.visitor.patronymic, </i> <br />
+    <b>зареєстрований за адресою: </b><label>@Model.visitor.address</label> <br />
+    <b>контактний телефон:</b> <label> @Model.visitor.mobile</label><br />
+    <b>паспорт:</b> <label> @Model.visitor.passport_no</label> <br />
+    <h3>Прошу призначити</h3>
+    <select asp-for="application.application_subsidy_type" id=centerLayer asp-items="@Model.subTypes">
+        <option value="">Обрати необхідне</option>
+    </select>
+    <h3>Оберіть потрібну декларацію та документи: </h3>
+    <select asp-for="@Model.DeclarationNo" id=centerLayer asp-items="@Model.selectDeclaration">
+        <option value="">Оберіть декларацію</option> 
+    </select> <br />
+    <select asp-for="@Model.ApplicationHealthNo" id=centerLayer asp-items="@Model.selectHealthCertificates">
+    <option value="">Оберіть довідку про стан здоров'я</option>
+    </select><br />
+    <select asp-for="@Model.ApplicationChildNo" id=centerLayer asp-items="@Model.selectChildSertificates">
+    </select><br />
+    <select asp-for="@Model.ApplicationDisabledNo" id=centerLayer asp-items="@Model.selectDisabledCertificates">
+    </select><br>
+    <b>Підтверджую відсутність змін у складі сім'ї</b> <br />
+    <b>Про відмову в призначенні або припинення виплати призначеної соціальної допомоги у разі подання неповних чи недостовірних відомостей про доходи та майновий стан сім'ї мене попереджено</b><br />
+    
+    
+    <input type="submit" id=centerLayer value="Подати заяву" />
+</form>

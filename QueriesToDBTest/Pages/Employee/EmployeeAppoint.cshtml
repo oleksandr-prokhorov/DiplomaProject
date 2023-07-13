@@ -1,0 +1,6 @@
+﻿@page "{login}/{id:int}"
+@model QueriesToDBTest.Pages.Employee.EmployeeAppointModel
+@{
+    Layout = "./_Employee_Layout";
+}
+<a asp-page="AppointSubsidyEmployee" asp-route-login=@Model.Login><img src="~/return.png"  width="64" height="64"></a>

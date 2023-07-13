@@ -1,0 +1,38 @@
+﻿@page "{id:int}"
+@model QueriesToDBTest.Pages.Client.VisitorDocumentsModel
+@{
+    Layout = "./_Visitor_Layout";
+}
+<a asp-page="VisitorStart" asp-route-login=@Model.Login><img src="~/return.png"  width="64" height="64"></a>
+<div class="row">
+    <div class="col-md-4">
+        <img src="~/declarations.png">
+        <h3>Декларація про доходи та витрати</h3>
+        <p> Перейдіть на цю форму, щоб заповнити декларацію про доходи та витрати</p>
+        <p> <a class="btn btn-primary btn-sm" asp-page="VisitorDeclaration" asp-route-id=@Model.Id>Оформлення декларації</a></p>
+    </div>
+    <div class="col-md-4">
+        <img src="~/health.png">
+        <h3>Довідка про стан власного здоров'я</h3>
+        <p> Перейдіть на цю форму, щоб внести інформацію про свої довідки по стану здоров'я</p>
+        <p> <a class="btn btn-primary btn-sm" asp-page="VisitorHealthCertificate" asp-route-id=@Model.Id>Оформлення довідки</a></p>
+    </div>
+    <div class="col-md-4">
+        <img src="~/baby.png" width="128" height="128" >
+        <h3>Довідка про опіку над дитиною</h3>
+        <p> Перейдіть на цю форму, щоб внести інформацію про довідки по опіці над дитиною</p>
+        <p> <a class="btn btn-primary btn-sm" asp-page="VisitorChildCertificate" asp-route-id=@Model.Id>Оформлення довідки</a></p>
+    </div>
+    <div class="col-md-4">
+        <img src="~/disabledcare.png" width="128" height="128" >
+        <h3>Довідки про опіку над людиною з інвалідністю</h3>
+        <p> Перейдіть на цю форму, щоб внести інформацію про довідки по опіці над людиною з інвалідністю</p>
+        <p> <a class="btn btn-primary btn-sm" asp-page="VisitorDisabledCertificate" asp-route-id=@Model.Id>Оформлення довідки</a></p>
+    </div>
+    <div class="col-md-4">
+        <img src="~/certificates.png" width="128" height="128" >
+        <h3>Переглянути усі внесені довідки</h3>
+        <p> Перейдіть на цю форму, щоб переглянути інформацію щодо внесених у систему даних</p>
+        <p> <a class="btn btn-primary btn-sm" asp-page="VisitorShowCertificates" asp-route-id=@Model.Id>Перегляд документів</a></p>
+    </div>
+</div>

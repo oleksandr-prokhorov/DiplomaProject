@@ -1,0 +1,85 @@
+﻿@page "{login}/{id:int}"
+@model QueriesToDBTest.Pages.Employee.EditEmployeeModel
+@{
+}
+@{
+    Layout = "./_Employee_Layout";
+}
+<style type="text/css">
+    #button {
+        margin-top: 10px;
+    }
+    </style>
+<h2>@ViewData["Title"]</h2>
+    <a asp-page="Employee" asp-route-login=@Model.Login><img src="~/return.png"  width="64" height="64"></a>
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="visitor.visitor_no" type="hidden" />
+    <div>
+        <label>Ім'я</label>
+        <div>
+            <input asp-for="visitor.f_name" />
+            <span asp-validation-for="visitor.f_name"></span>
+        </div>
+    </div>
+     <div>
+        <label>По-батькові</label>
+        <div>
+            <input asp-for="visitor.patronymic" />
+            <span asp-validation-for="visitor.patronymic"></span>
+        </div>
+    </div>
+    <div>
+        <label>Прізвище</label>
+        <div>
+            <input asp-for="visitor.l_name" />
+            <span asp-validation-for="visitor.l_name"></span>
+        </div>
+    </div>
+    <div>
+        <label>Дата народження</label>
+        <div>
+            <input asp-for="visitor.date_of_birth" type="date" />
+           
+            <span asp-validation-for="visitor.date_of_birth"></span>
+        </div>
+    </div>
+    <div>
+        <label>Дані паспорту</label>
+        <div>
+            <input asp-for="visitor.passport_no" type="text" />
+            <span asp-validation-for="visitor.passport_no"></span>
+        </div>
+    </div>
+    <div>
+        <label>ІДН</label>
+        <div>
+            <input asp-for="visitor.idn" type="text" />
+            <span asp-validation-for="visitor.idn"></span>
+        </div>
+    </div>
+    <div>
+        <label>Ім'я облікового запису</label>
+        <div>
+            <input asp-for="visitor.login" type="text" />
+            <span asp-validation-for="visitor.login"></span>
+        </div>
+    </div>
+    <div>
+        <label>Мобільний номер</label>
+        <div>
+            <input asp-for="visitor.mobile" type="text" />
+            <span asp-validation-for="visitor.mobile"></span>
+        </div>
+    </div>
+    <div>
+        <label>Адреса</label>
+        <div>
+            <input asp-for="visitor.address" type="text" />
+            <span asp-validation-for="visitor.address"></span>
+        </div>
+    </div>
+    <div>
+        <input class="btn btn-success btn-sm" id="button" type="submit" value="Зберегти дані" />
+    </div>
+</form>

@@ -1,0 +1,42 @@
+﻿@page "{login}"
+@model QueriesToDBTest.Pages.Admin.AdministratorCreateEmployeeModel
+@{
+    Layout = "./_Employee_Layout";
+}
+@{
+    List<SelectListItem> positions = new List<SelectListItem> {
+        new SelectListItem { Value = "specialist", Text = "спеціалист" },
+        new SelectListItem { Value = "senior specialist", Text = "старший спеціалист" },
+        new SelectListItem { Value = "director", Text = "начальник управління" }
+    };
+}
+<style type="text/css">
+    #button {
+        margin-top: 10px;
+    }
+    </style>
+<a asp-page="AdministratorAccounts" asp-route-login=@Model.Login><img src="~/return.png"  width="64" height="64"></a>
+<h2>@ViewData["Title"]</h2>
+<div asp-validation-summary="All"></div>
+<form method="POST">
+    <div>
+        <label>Ім'я</label><br /><input asp-for="staffMember.f_name" />
+        </div>
+    <div>
+        <label>По-батькові</label><br /><input asp-for="staffMember.patronymic" />
+        </div>
+    <div>
+        <label>Прізвище</label><br /><input asp-for="staffMember.l_name" />
+        </div>
+    <div>
+        <label>Посада</label><br />
+            <select asp-for="staffMember.position" asp-items="positions">
+                <option value="">Оберіть посаду</option>
+                </select>
+        </div>
+    <div><label>Ім'я облікового запису:</label><br /><input asp-for="staffMember.login"  /></div>
+    <input asp-for="user.category" type="hidden" value="@Model.Category"/>
+    <input asp-for="user.login" type="hidden" value="staffMember.login"/>
+    <div><label>Початковий пароль:</label><br /><input asp-for="user.password"  /></div>
+    <input type="submit" class="btn btn-success btn-sm" id="button" value="Зареєструвати співробітника" />
+</form>

@@ -1,0 +1,44 @@
+﻿@page "{id:int}"
+@model QueriesToDBTest.Pages.Client.VisitorHealthCertificateModel
+@{
+    Layout = "./_Visitor_Layout";
+}
+<style type="text/css">
+    #button {
+        margin-top: 10px;
+    }
+    #center {
+        margin: 10px;
+    }
+   </style>
+   <a asp-page="VisitorDocuments" asp-route-id=@Model.Id><img src="~/return.png"  width="64" height="64"></a>
+<div class="form-wrap">
+    <div class="profile">
+        <h3>Створення довідки</h3>
+        <h4>@Model.Message</h4>
+    </div>
+    <div asp-validation-summary="All"></div>
+    <form method="post">
+        <div>
+            <label>Дата останнього дослідження</label><br /><input asp-for="healthCertificate.last_inspection" />
+        </div>
+         <div> 
+             <label>Дата видачі довідки</label><br /><input asp-for="healthCertificate.period_start" />
+         </div>
+         <div>
+             <label>Дата закінчення</label><br /><input asp-for="healthCertificate.period_end" />
+         </div>
+         <div>
+             <label>Примітки</label><br /><input asp-for="healthCertificate.comment" />
+         </div>
+         <input asp-for="healthCertificate.owner_no" type="hidden" value="@Model.Id"/>
+         <div>
+            <label>Група інвалідності</label><br />
+            @foreach (var type in Model.disability_groups)
+            {
+                <input type="radio" asp-for="healthCertificate.disability_group" id="center" value="@type" />@type <br />
+            }
+        </div>
+    <input type="submit" id=button class="btn btn-success btn-sm" value="Оформити довідку" />
+  </form> 
+</div>

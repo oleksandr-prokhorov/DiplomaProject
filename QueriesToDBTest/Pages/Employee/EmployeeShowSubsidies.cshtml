@@ -1,0 +1,64 @@
+﻿@page "{login}/{id:int}"
+@model QueriesToDBTest.Pages.Employee.EmployeeShowSubsidiesModel
+@{
+    Layout = "./_Employee_Layout";
+}
+<style type="text/css">
+    #centerLayer {
+     margin: 10px;
+    }
+    #button {
+        margin-top: 10px;
+    }
+    #boxes {
+    outline: 8px solid #000;
+   }
+   </style>
+   <a asp-page="AppointSubsidyEmployee" asp-route-login=@Model.Login><img src="~/return.png"  width="64" height="64"></a>
+   <h2>Активна виплата</h2>
+   <table class="table">
+       <thead>
+           <tr><th>Тип субсідії</th><th>Розмір виплати</th><th>Початок виплати</th><th>Кінець виплати</th><th>Статус</th><th>Примітки</th></tr>
+           </thead>
+           <tbody>
+               @foreach (var subsidy in Model.temp)
+               {
+                   <tr>
+                       <td>@subsidy.type</td>
+                       <td>@subsidy.payment_amount</td>
+                       <td>@subsidy.period_start.ToString("yyyy-MM-dd")</td>
+                       <td>@subsidy.period_end.ToString("yyyy-MM-dd")</td>
+                       <td>@subsidy.status</td>
+                       <td>@subsidy.comment</td>
+                       <td>
+                           <form method="post">
+                               <button type="submit" id="button" class="btn btn-danger btn-sm" asp-page-handler="cancel" asp-route-no="@subsidy.payment_no">
+                                   Скасувати
+                                   </button>
+                                   </form>
+                       </td>
+                   </tr>
+               }
+               </tbody>
+   
+           </table>
+           <h2>Скасовані та закінчені виплати</h2>
+      <table class="table">
+       <thead>
+           <tr><th>Тип субсідії</th><th>Розмір виплати</th><th>Початок виплати</th><th>Кінець виплати</th><th>Статус</th><th>Примітки</th></tr>
+           </thead>
+           <tbody>
+               @foreach (var subsidy in Model.subsidies)
+               {
+                   <tr>
+                       <td>@subsidy.type</td>
+                       <td>@subsidy.payment_amount</td>
+                       <td>@subsidy.period_start.ToString("yyyy-MM-dd")</td>
+                       <td>@subsidy.period_end.ToString("yyyy-MM-dd")</td>
+                       <td>@subsidy.status</td>
+                       <td>@subsidy.comment</td>
+                   </tr>
+               }
+               </tbody>
+   
+           </table>

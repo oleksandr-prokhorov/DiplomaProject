@@ -1,0 +1,71 @@
+﻿@page "{login}/{id:int}"
+@model QueriesToDBTest.Pages.Admin.AdministratorEditEmployeeModel
+@{
+    Layout = "./_Employee_Layout";
+}
+@{
+    List<SelectListItem> positions = new List<SelectListItem> {
+        new SelectListItem { Value = "specialist", Text = "спеціалист" },
+        new SelectListItem { Value = "senior specialist", Text = "старший спеціалист" },
+        new SelectListItem { Value = "director", Text = "начальник управління" }
+    };
+}
+<style type="text/css">
+    #button {
+        margin-top: 10px;
+    }
+    </style>
+<h2>@ViewData["Title"]</h2>
+<a asp-page="AdministratorAccounts" asp-route-login=@Model.Login><img src="~/return.png"  width="64" height="64"></a>
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="staffMember.staff_no" type="hidden" />
+    <div>
+        <label>Ім'я</label>
+        <div>
+            <input asp-for="staffMember.f_name" />
+            <span asp-validation-for="staffMember.f_name"></span>
+        </div>
+    </div>
+     <div>
+        <label>По-батькові</label>
+        <div>
+            <input asp-for="staffMember.patronymic" />
+            <span asp-validation-for="staffMember.patronymic"></span>
+        </div>
+    </div>
+    <div>
+        <label>Прізвище</label>
+        <div>
+            <input asp-for="staffMember.l_name" />
+            <span asp-validation-for="staffMember.l_name"></span>
+        </div>
+    </div>
+    <div>
+        <label>Посада</label>
+        <div>
+            <select asp-for="staffMember.position" asp-items="positions">
+                <option value="">Оберіть посаду</option>
+                </select>
+        </div>
+    </div>
+    <div>
+        <label>Ім'я облікового запису</label>
+        <div>
+            <input asp-for="staffMember.login" type="text" />
+            <span asp-validation-for="staffMember.login"></span>
+        </div>
+    </div>
+    <div>
+        <label>Пароль</label>
+        <div>
+            <input asp-for="user.password" type="password" />
+            <span asp-validation-for="user.password"></span>
+        </div>
+    </div>
+    <input asp-for="user.login" type="hidden" value="@Model.staffMember.login"/>
+    <input asp-for="user.category" type="hidden" value="@Model.Category"/>
+    <div>
+        <input class="btn btn-success btn-sm" id="button" type="submit" value="Зберегти дані" />
+    </div>
+</form>

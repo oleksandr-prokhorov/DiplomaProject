@@ -1,0 +1,43 @@
+﻿@page "{login}"
+@model QueriesToDBTest.Pages.Admin.AdministratorAccountsModel
+@{
+    Layout = "./_Employee_Layout";
+}
+<style type="text/css">
+    #centerLayer {
+     margin: 10px;
+    }
+    #button {
+        margin-top: 10px;
+    }
+    </style>
+    <a asp-page="Administrator" asp-route-login=@Model.Login><img src="~/return.png"  width="64" height="64"></a>
+<table class="table">
+    <thead>
+        <tr><th>Ім'я</th><th>По-батькові</th><th>Прізвище</th><th>Посада</th><th>Ім'я облікового запису</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var visitor in Model.staff)
+        {
+        <tr>
+            <td>@visitor.f_name</td>
+            <td>@visitor.patronymic</td>
+            <td>@visitor.l_name</td>
+            <td>@visitor.position</td>
+            <td>@visitor.login</td>
+            <td>
+                <form method="post">
+                    <a class="btn btn-info btn-sm" id="button" asp-page="AdministratorEditEmployee" asp-route-login=@Model.Login asp-route-id="@visitor.staff_no">Змінити дані</a>
+                </form>
+            </td>
+            <td><form method="post">
+                <button type="submit" id="button" class="btn btn-danger btn-sm" asp-page-handler="delete" asp-route-id="@visitor.staff_no">
+                        Видалити
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+    <p><a class="btn btn-success btn-sm" id="button" asp-page="AdministratorCreateEmployee" asp-route-login=@Model.Login>Зареєструвати співробітника</a></p>

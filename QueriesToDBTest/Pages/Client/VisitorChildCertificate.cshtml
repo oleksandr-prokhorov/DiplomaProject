@@ -1,0 +1,34 @@
+﻿@page "{id:int}"
+@model QueriesToDBTest.Pages.Client.VisitorChildCertificateModel
+@{
+    Layout = "./_Visitor_Layout";
+}
+<style type="text/css">
+    #button {
+        margin-top: 10px;
+    }
+   </style>
+   <a asp-page="VisitorDocuments" asp-route-id=@Model.Id><img src="~/return.png"  width="64" height="64"></a>
+<div class="form-wrap">
+  <div class="profile">
+    <h3>Створення довідки</h3>
+    <h4>@Model.Message</h4>
+  </div>
+  <div asp-validation-summary="All"></div>
+  <form method="post">
+    <div>
+        <label>Ім'я</label><br /><input asp-for="childCertificate.f_name" />
+        </div>
+    <div>
+        <label>По-батькові</label><br /><input asp-for="childCertificate.patronymic" />
+        </div>
+    <div>
+        <label>Прізвище</label><br /><input asp-for="childCertificate.l_name" />
+        </div>
+    <div>
+        <label>Дата народження</label><br /><input asp-for="childCertificate.date_of_birth"   />
+        </div>
+        <input asp-for="childCertificate.owner_no" type="hidden" value="@Model.Id"/>
+    <input type="submit" id=button class="btn btn-success btn-sm" value="Оформити довідку" />
+  </form> 
+</div>
